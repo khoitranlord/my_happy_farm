@@ -5,20 +5,11 @@ import time
 import  sys
 from  Adafruit_IO import  MQTTClient
 import firebase_admin
-import firebase_admin
 from firebase_admin import credentials
-import datetime
-from firebase_admin import db
-from firebase_admin import firestore    
 
-DATABASE_URL = "https://okea-a0fe0-default-rtdb.asia-southeast1.firebasedatabase.app"
-
-cred = credentials.Certificate("gateway/credential.json")
-app = firebase_admin.initialize_app(cred, {
-	'databaseURL': DATABASE_URL})
-
-db = firestore.client()
-ref = db.collection(u"ActivityLog")
+cred = credentials.Certificate("./okea-a0fe0-firebase-adminsdk-5cfz8-ff8d5638f8.json")
+firebase_admin.initialize_app(cred)
+ref = firebase_admin.db.reference("/ActivityLog")
 from sys import platform
 
 AIO_FEED_ID = ["bbc-light", "bbc-temp", "bbc-pump", "bbc-mode", "bbc-moisture", "bbc-light-on"]
@@ -45,34 +36,26 @@ def  message(client , feed_id , payload):
     print("Data is recieved form:  " + feed_id, ", Payload: " + payload)
     log_content = {"Time": datetime.datetime.now(), "Description": ""}
     if isMicrobitConnected :
-        log_content = {u"Username" : u"admin","Time": str(datetime.datetime.now()), u"Description": u""}
         if feed_id == "bbc-light-on":
             if (payload == "A"):
+            	log_content."Description" = "Light turns on"
                 uart_write("A")
-                log_content[u"Description"] = u"Light turns on."
             elif (payload == "B"):
+            	log_content."Description" = "Light turns on"
                 uart_write("B")
-                log_content[u"Description"] = u"Light turns off."
                 
         elif (feed_id == "bbc-pump"):
             if (payload == "D"):
                 uart_write("D")
-                log_content[u"Description"] = u"Pump turns off."
             elif (payload == "C"):
                 uart_write("C")
-                log_content[u"Description"] = u"Pump turns on."
                 
         elif (feed_id == "bbc-mode"):
             if (payload == "E"):
                 uart_write("E")
-                log_content[u"Description"] = u"Automatic mode activated"
             elif (payload == "F"):
                 uart_write("F")
-                log_content[u"Description"] = u"Automatic mode deactivated"
-        if (log_content[u"Description"] == u""):
-            log_content[u"Description"] = u"Unknown action!"
-        update_time, doc_ref=ref.add(log_content)
-        print(f'Added document with id {doc_ref.id}')
+        ref.set(log_content)
      	
     return
     
