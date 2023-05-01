@@ -126,107 +126,111 @@ const RoomDetail = ({route, navigation}) => {
         clearInterval(intervalid);
         isMounted = false;
     };
-}, []);
-    return (
-        <View style={style.container}>
-          <TouchableOpacity
-                onPress={() => navigation.navigate("HOME")}
-                style={{
-                    flexDirection: "row",
-                    backgroundColor: "#607FF2",
-                    width: 40,
-                    height: 40,
-                    paddingHorizontal: 15,
-                    paddingVertical: 10,
-                    borderRadius: 30,
-                    marginHorizontal: 30,
-                    marginBottom: 10,
-                }}
-            >
-                <IconM name="arrow-back-ios" size={20} color="#fff" />
-                <Text
-                    style={{
-                        color: "white",
-                        fontSize: 16,
-                    }}
-                ></Text>
-            </TouchableOpacity>
-          <View style={style.title}>
-            <Text
-              style={{
-                  color: "#fff",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  letterSpacing: 1,
-              }}
-            >
-              ROOM DETAIL
-            </Text>
-          </View>
-          <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-            <View
-              style={{
-                paddingHorizontal: 30,
-                width: "100%",
-                marginTop: 30,
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: "#FFFFFFfe",
-                  height: 280,
-                  width: "100%",
-                  borderRadius: 10,
-                  paddingHorizontal: 0,
-                }}
-              >
-                <View style={style.profileItem}>
-                  <View style={style.infoItem}>
-                    <Text style={style.titleItem}>Room Name</Text>
-                    <Text style={style.desItem}>
-                      {name}
-                    </Text>
-                  </View>
-                  <View style={style.infoItem}>
-                    <Text style={style.titleItem}>Door Status</Text>
-                      {doorStatus == 0 && <Text style={style.desItem}>Close at {Moment(doorTimestamp).format('HH:mm DD/MM/YYYY')}</Text>
-                      || <Text style={style.desItem}>Open at {Moment(doorTimestamp).format('HH:mm DD/MM/YYYY')}</Text>}
-                  </View>
-                  <View style={style.infoItem}>
-                    <Text style={style.titleItem}>Room Status</Text>
-                      {status == 0 && <Text style={style.desItem}>Ready to book</Text>
-                      || <Text style={style.desItem}>In use</Text>}
-                  </View>
-                </View>
+  }, []);
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTime = date + ' ' + time;
+  return (
+    <View style={style.container}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("HOME")}
+        style={{
+            flexDirection: "row",
+            backgroundColor: "#607FF2",
+            width: 40,
+            height: 40,
+            paddingHorizontal: 15,
+            paddingVertical: 10,
+            borderRadius: 30,
+            marginHorizontal: 30,
+            marginBottom: 10,
+        }}
+      >
+        <IconM name="arrow-back-ios" size={20} color="#fff" />
+        <Text
+            style={{
+                color: "white",
+                fontSize: 16,
+            }}
+        />
+      </TouchableOpacity>
+      <View style={style.title}>
+        <Text
+          style={{
+              color: "#fff",
+              fontSize: 20,
+              fontWeight: "bold",
+              letterSpacing: 1,
+          }}
+        >
+          ROOM DETAIL
+        </Text>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+        <View
+          style={{
+            paddingHorizontal: 30,
+            width: "100%",
+            marginTop: 30,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "#FFFFFFfe",
+              height: 280,
+              width: "100%",
+              borderRadius: 10,
+              paddingHorizontal: 0,
+            }}
+          >
+            <View style={style.profileItem}>
+              <View style={style.infoItem}>
+                <Text style={style.titleItem}>Room Name</Text>
+                <Text style={style.desItem}>
+                  {name}
+                </Text>
+              </View>
+              <View style={style.infoItem}>
+                <Text style={style.titleItem}>Door Status</Text>
+                  {doorStatus == 0 && <Text style={style.desItem}>Close at {Moment(doorTimestamp).format('HH:mm DD/MM/YYYY')}</Text>
+                  || <Text style={style.desItem}>Open at {Moment(doorTimestamp).format('HH:mm DD/MM/YYYY')}</Text>}
+              </View>
+              <View style={style.infoItem}>
+                <Text style={style.titleItem}>Room Status</Text>
+                  {status == 0 && <Text style={style.desItem}>Ready to book</Text>
+                  || <Text style={style.desItem}>In use</Text>}
               </View>
             </View>
-            <View
-              style={{
-                height: 100,
-                width: "100%",
-                marginTop: 30,
-                borderRadius: 50,
-                alignItems: "center",
-              }}
-            >
-              <Button
-                onPress={Book}
-                title="Book"
-              />
-            </View>
-            <View style={style.personTitleContainer}>
-              <Text style={style.personTitle}>Số lượng người trong phòng là: {noPeople}</Text>
-            </View>
-            <View style={style.personContainer}>
-              {personList.map(person => (
-                <View style={style.personBox}>
-                  <Text style={style.personName}>{person.name}</Text>
-                </View>
-              ))}
-            </View>
-          </ScrollView>
+          </View>
         </View>
-    );
+        <View
+          style={{
+            height: 100,
+            width: "100%",
+            marginTop: 30,
+            borderRadius: 50,
+            alignItems: "center",
+          }}
+        >
+          <Button
+            onPress={Book}
+            title="Book"
+          />
+        </View>
+        <View style={style.personTitleContainer}>
+          <Text style={style.personTitle}>Last Updated: {dateTime}</Text>
+        </View>
+        <View style={style.personContainer}>
+          {personList.map(person => (
+            <View style={style.personBox}>
+              <Text style={style.personName}>{person.name}</Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
+  );
 };
 
 const style = StyleSheet.create({
