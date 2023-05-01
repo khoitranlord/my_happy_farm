@@ -1,10 +1,10 @@
-const express = require('express');
-const rootRoutes = express.Router();
+import { Router } from 'express';
+const rootRoutes = Router();
 
-const userRouter = require('./user.routes');
-const feedRouter = require('./iofeed.routes');
+import userRouter from './user.routes';
+import feedRouter from './iofeed.routes';
 
 rootRoutes.use('/user', userRouter);
 rootRoutes.use('/feed', feedRouter);
 
-module.exports = rootRoutes;
+export default rootRoutes;

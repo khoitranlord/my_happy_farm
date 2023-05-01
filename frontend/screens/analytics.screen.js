@@ -6,23 +6,18 @@ import AnalyticsItem from "../component/analytics.component";
 const devices = [
     {
         id: "1",
-        name: "Room 101",
-        image: require('./../assets/images/home.png'),
+        name: "Temperature",
+        image: require('./../assets/images/temp.png'),
     },
     {
         id: "2",
-        name: "Room 102",
-        image: require("./../assets/images/home.png"),
+        name: "Light",
+        image: require("./../assets/images/light.png"),
     },
     {
         id: "3",
-        name: "Room 201",
-        image: require("./../assets/images/home.png"),
-    },
-    {
-        id: "4",
-        name: "Room 202",
-        image: require("./../assets/images/home.png"),
+        name: "Moisture",
+        image: require("./../assets/images/water.png"),
     }
 ]
 
@@ -30,7 +25,7 @@ const Analytics = ({navigation}) => {
 
     const renderDevice = ({item}) => {
         return (
-                <AnalyticsItem name={item.name} image={item.image} />
+            <AnalyticsItem name={item.name} image={item.image} />
         )
     }
 
@@ -45,11 +40,11 @@ const Analytics = ({navigation}) => {
                         letterSpacing: 1,
                     }}
                 >
-                    ROOM LIST
+                    DASHBOARD
                 </Text>
             </View>
 
-            <SafeAreaView style={style.grid}>
+            <SafeAreaView style={style.container}>
                 <FlatList
                     data={devices}
                     renderItem={renderDevice}

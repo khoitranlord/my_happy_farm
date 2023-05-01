@@ -1,5 +1,3 @@
-create database IoT;
-
 use IoT;
 
 create table user (

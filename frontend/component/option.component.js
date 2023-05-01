@@ -10,8 +10,16 @@ const OptionItem = (props) => {
 
     const changeValue = async () => {
         try {
-
-            const value = (isEnabled === true) ? "0" : "1"
+            var value
+            if (bbc_name === "mode") {
+                value = (isEnabled === true) ? "F" : "E"
+            } 
+            else if (bbc_name === "light-on") {
+                value = (isEnabled === true) ? "B" : "A"
+            }
+            else {
+                value = (isEnabled === true) ? "D" : "C"
+            }
 
             const data = {
                 "datum": {
@@ -20,11 +28,11 @@ const OptionItem = (props) => {
             }
 
             const result = await axios.post(
-                `https://io.adafruit.com/api/v2/nvmhai0205/feeds/bbc-${bbc_name}/data`,
+                `https://io.adafruit.com/api/v2/khoitran1422/feeds/bbc-${bbc_name}/data`,
                 data,
                 {
                     headers: {
-                        "X-AIO-Key": "aio_elDy24Jp8pJXA5K0wp5B52L1mCHc"
+                        "X-AIO-Key": "aio_Zjdl07KTgi43Z05WFtd4NVZIfQ6q"
                     }
                 }
             )
@@ -37,7 +45,7 @@ const OptionItem = (props) => {
     const getValue = async () => {
         try {
             const result = await axios.get(
-                `https://io.adafruit.com/api/v2/nvmhai0205/feeds/bbc-${bbc_name}`
+                `https://io.adafruit.com/api/v2/khoitran1422/feeds/bbc-${bbc_name}`
             )
             setIsEnabled(result.data.last_value == 1)
         } catch (error) {

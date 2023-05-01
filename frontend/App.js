@@ -41,7 +41,7 @@ export default function App() {
             >
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName="SIGN IN">
-                        <Stack.Screen
+                        {/* <Stack.Screen
                             options={headerConfig("#dfdfdf", false)}
                             name="SIGN IN"
                             component={Login}
@@ -50,7 +50,7 @@ export default function App() {
                             options={headerConfig("#dfdfdf", false)}
                             name="CREATE ACCOUNT"
                             component={CreateAccount}
-                        />
+                        /> */}
                         <Stack.Screen
                             options={headerConfig("#dfdfdf", false)}
                             name="HOME"

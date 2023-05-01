@@ -5,19 +5,15 @@ import OptionItem from "../component/option.component";
 const devices = [
     {
         id: "1",
-        name: "Light",
+        name: "Mode",
     },
     {
         id: "2",
-        name: "Fan",
+        name: "Light-on",
     },
     {
         id: "3",
-        name: "PumpIn",
-    },
-    {
-        id: "4",
-        name: "PumpOut",
+        name: "Pump",
     }
 ]
 
