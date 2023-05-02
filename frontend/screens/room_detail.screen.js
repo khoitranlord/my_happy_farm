@@ -4,123 +4,112 @@ import IconM from "react-native-vector-icons/MaterialIcons";
 import Button from "../component/button.component";
 import axios from "axios";
 import Moment from 'moment';
-import AnalyticsItem from "../component/analytics.component";
+const name = "Moisture"
+const ModuleDetail = ({moduleName, navigation}) => {
+  
+  const [status, setStatus] = useState("F")
+  // const [start, setStart] = useState(new Date())
+  // const [end, setEnd] = useState(new Date())
 
-const name = "Room 101";
-
-const PERSONLIST = [
-  {
-    id: "9486880",
-    name: "Nguyễn Tuấn Minh",
-  },
-  {
-    id: "261046",
-    name: "Đặng Tiến Mạnh",
-  },
-  {
-    id: "12634322",
-    name: "Phạm Ngọc Quang",
-  },
-]
-
-const RoomDetail = ({route, navigation}) => {
-
-  const [status, setStatus] = useState(0)
-  const [start, setStart] = useState(new Date())
-  const [end, setEnd] = useState(new Date())
-
-  const Book = () => {
-    navigation.navigate("BOOKING", { roomStatus: status, setStatus, setStart, setEnd })
-  }
-
+  const Book = () => {}
+  
+  // const bbc_name = moduleName.toLowerCase()
   const [doorStatus, setDoorStatus] = useState("0");
   const [doorTimestamp, setDoorTimestamp] = useState("0");
 
-  const [personList, setPersonList] = useState([]);
-  const [noPeople, setNoPeople] = useState(0);
-  const [personData, setPersonData] = useState()
+  // const [personList, setPersonList] = useState([]);
+  // const [noPeople, setNoPeople] = useState(0);
+  // const [personData, setPersonData] = useState()
 
-  const [lastUpdate, setLastUpdate] = useState(0);
-  const [timeFlag, setTimeFlag] = useState(new Date());
+  // const [lastUpdate, setLastUpdate] = useState(0);
+  // const [timeFlag, setTimeFlag] = useState(new Date());
 
-  const removePeople = (e) => {
-    var array = [...personList]; // make a separate copy of the array
-    var array1 = array.filter(item => item.id == e.id)[0]
-    var index = array.indexOf(array1)
-    if (index !== -1) {
-      array.splice(index, 1);
-      setPersonList(array);
-    }
-  }
+  // const removePeople = (e) => {
+  //   var array = [...personList]; // make a separate copy of the array
+  //   var array1 = array.filter(item => item.id == e.id)[0]
+  //   var index = array.indexOf(array1)
+  //   if (index !== -1) {
+  //     array.splice(index, 1);
+  //     setPersonList(array);
+  //   }
+  // }
 
-  const handleBuzzer = async (value) => {
-    const data = {
-      "value": value
-    }
-    const result = await axios.post(
-      `https://io.adafruit.com/api/v2/HungNguyenHung/feeds/bbc-buzzer/data`,
-      data,
-      {
-          headers: {
-              "X-AIO-Key": "aio_HLNk45gSQZrVK2uSpEsOKZ2m5uji"
-          }
-      }
-  )
-  }
+  // const handleBuzzer = async (value) => {
+  //   const data = {
+  //     "value": value
+  //   }
+  //   const result = await axios.post(
+  //     `https://io.adafruit.com/api/v2/khoitran1422/feeds/bbc-/data`,
+  //     data,
+  //     {
+  //         headers: {
+  //             "X-AIO-Key": "aio_KLXh51hIqBw7hEU04kdX1bI0lg3z"
+  //         }
+  //     }
+  // )
+  // }
 
-  useEffect(() => {
-    if(lastUpdate.valueOf() > timeFlag.valueOf()){
-      if(personList.some(item => personData.id == item.id)){
-        removePeople(personData)
-        setNoPeople(noPeople - 1)
-      }
-      else {
-        if(lastUpdate.valueOf() < start.valueOf() || lastUpdate.valueOf() > end.valueOf()){
-          handleBuzzer(1)
-          setTimeout(function(){
-            handleBuzzer(0)
-        }, 10000);
-        }
-        personData && setPersonList(list => [...list, personData])
-        setNoPeople(noPeople + 1)
-      }
+  // useEffect(() => {
+  //   if(lastUpdate.valueOf() > timeFlag.valueOf()){
+  //     if(personList.some(item => personData.id == item.id)){
+  //       removePeople(personData)
+  //       setNoPeople(noPeople - 1)
+  //     }
+  //     else {
+  //       if(lastUpdate.valueOf() < start.valueOf() || lastUpdate.valueOf() > end.valueOf()){
+  //         handleBuzzer(1)
+  //         setTimeout(function(){
+  //           handleBuzzer(0)
+  //       }, 10000);
+  //       }
+  //       personData && setPersonList(list => [...list, personData])
+  //       setNoPeople(noPeople + 1)
+  //     }
       
-      setTimeFlag(new Date())
-    }
+  //     setTimeFlag(new Date())
+  //   }
     
-  }, [lastUpdate])
+  // }, [lastUpdate])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [timeFlag])
+  // }, [timeFlag])
 
-  const postPersonList = async () => {
-    const result = await axios.get(
-      `https://io.adafruit.com/api/v2/HungNguyenHung/feeds/bbc-card`
-    );
-    const dataId = result.data.last_value
-    const dataName = PERSONLIST.filter(e => e.id == dataId)[0].name
-    const data = {
-      id: dataId,
-      name: dataName,
-    }
-    setPersonData(data)
-    setLastUpdate(new Date(result.data.updated_at))
-    }
+  // const postPersonList = async () => {
+  //   const result = await axios.get(
+  //     `https://io.adafruit.com/api/v2/HungNguyenHung/feeds/bbc-card`
+  //   );
+  //   const dataId = result.data.last_value
+  //   const dataName = PERSONLIST.filter(e => e.id == dataId)[0].name
+  //   const data = {
+  //     id: dataId,
+  //     name: dataName,
+  //   }
+  //   setPersonData(data)
+  //   setLastUpdate(new Date(result.data.updated_at))
+  //   }
   
-
-  const getValue = async () => {
+  const getModuleValue = async () => {
     const result = await axios.get(
-    `https://io.adafruit.com/api/v2/HungNguyenHung/feeds/bbc-magnetic`
+      `https://io.adafruit.com/api/v2/khoitran1422/feeds/bbc-moisture`
     );
+    // console.log(result.data);
     setDoorStatus(result.data.last_value);
     setDoorTimestamp(result.data.updated_at);
+  }
+  const getModeValue = async () => {
+    const result = await axios.get(
+      `https://io.adafruit.com/api/v2/khoitran1422/feeds/bbc-mode`
+    );
+    // console.log(result.data);
+    setStatus(result.data.last_value);
   }
   useEffect(() => {
     const isMounted = true;
     const intervalid = setInterval(() => {
-        getValue();
-        postPersonList();
+        getModuleValue();
+        getModeValue();
+        // postPersonList();
     }, 1000);
     return () => {
         clearInterval(intervalid);
@@ -164,7 +153,7 @@ const RoomDetail = ({route, navigation}) => {
               letterSpacing: 1,
           }}
         >
-          ROOM DETAIL
+          MODULE DETAIL
         </Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
@@ -186,20 +175,19 @@ const RoomDetail = ({route, navigation}) => {
           >
             <View style={style.profileItem}>
               <View style={style.infoItem}>
-                <Text style={style.titleItem}>Room Name</Text>
+                <Text style={style.titleItem}>Module Name</Text>
                 <Text style={style.desItem}>
                   {name}
                 </Text>
               </View>
               <View style={style.infoItem}>
-                <Text style={style.titleItem}>Door Status</Text>
-                  {doorStatus == 0 && <Text style={style.desItem}>Close at {Moment(doorTimestamp).format('HH:mm DD/MM/YYYY')}</Text>
-                  || <Text style={style.desItem}>Open at {Moment(doorTimestamp).format('HH:mm DD/MM/YYYY')}</Text>}
+                <Text style={style.titleItem}>Module Status</Text>
+                  <Text style={style.desItem}>{doorStatus} at {Moment(doorTimestamp).format('HH:mm DD/MM/YYYY')}</Text>
               </View>
               <View style={style.infoItem}>
-                <Text style={style.titleItem}>Room Status</Text>
-                  {status == 0 && <Text style={style.desItem}>Ready to book</Text>
-                  || <Text style={style.desItem}>In use</Text>}
+                <Text style={style.titleItem}>Operating Mode</Text>
+                  {status == "E" && <Text style={style.desItem}>Automatic</Text>
+                  || <Text style={style.desItem}>Manual</Text>}
               </View>
             </View>
           </View>
@@ -215,19 +203,19 @@ const RoomDetail = ({route, navigation}) => {
         >
           <Button
             onPress={Book}
-            title="Book"
+            title="Update"
           />
         </View>
         <View style={style.personTitleContainer}>
           <Text style={style.personTitle}>Last Updated: {dateTime}</Text>
         </View>
-        <View style={style.personContainer}>
+        {/* <View style={style.personContainer}>
           {personList.map(person => (
             <View style={style.personBox}>
               <Text style={style.personName}>{person.name}</Text>
             </View>
           ))}
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );
@@ -307,4 +295,4 @@ const style = StyleSheet.create({
     }
 });
 
-export default RoomDetail;
+export default ModuleDetail;

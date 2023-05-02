@@ -43,7 +43,6 @@ const Options = () => {
                     renderItem={renderDevice}
                     keyExtractor={(device) => device.id}
                 >
-
                 </FlatList>
             </SafeAreaView>
         </View>

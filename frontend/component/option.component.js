@@ -6,7 +6,7 @@ const OptionItem = (props) => {
     const { name } = props;
     const [isEnabled, setIsEnabled] = useState(false);
 
-    const bbc_name = name.toLowerCase()
+    // const bbc_name = name.toLowerCase()
 
     const changeValue = async () => {
         try {
@@ -25,7 +25,7 @@ const OptionItem = (props) => {
                 data,
                 {
                     headers: {
-                        "X-AIO-Key": "aio_HLNk45gSQZrVK2uSpEsOKZ2m5uji"
+                        "X-AIO-Key": "aio_KLXh51hIqBw7hEU04kdX1bI0lg3z"
                     }
                 }
             )

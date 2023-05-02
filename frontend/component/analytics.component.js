@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, Alert, Pressable } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
-
+import ModuleDetail from "../screens/room_detail.screen";
 const AnalyticsItem = (props) => {
     const { name, image } = props;
     const navigation = useNavigation();

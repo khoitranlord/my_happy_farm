@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-
+import BBC_LIGHT from "../mockup_data/BBC_LIGHT.csv"
+import BBC_MOISTURE from "../mockup_data/BBC_MOISTURE.csv"
+import BBC_TEMP from "../mockup_data/BBC_TEMP.csv"
 import Login from "./screens/login.screen";
 import CreateAccount from "./screens/create_account.screen";
 import Analytics from "./screens/analytics.screen";
-import RoomDetail from "./screens/room_detail.screen";
 import TabNavigation from "./screens/tabnavigation";
 import Booking from "./screens/booking.screen";
 
@@ -14,6 +15,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "./screens/profile.screen";
 import { store } from "./store";
 import { Provider } from "react-redux";
+import drawGraph from "./screens/room_detail.screen1";
+import ModuleDetail from "./screens/room_detail.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -64,13 +67,13 @@ export default function App() {
                         <Stack.Screen
                             options={headerConfig("#dfdfdf", false)}
                             name="ROOM DETAIL"
-                            component={RoomDetail}
+                            component={ModuleDetail}
                         />
-                        <Stack.Screen
+                        {/* <Stack.Screen
                             options={headerConfig("#dfdfdf", false)}
                             name="BOOKING"
                             component={Booking}
-                        />
+                        /> */}
                     </Stack.Navigator>
                 </NavigationContainer>
             </View>
