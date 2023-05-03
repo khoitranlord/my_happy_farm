@@ -12,14 +12,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Analytics from "./analytics.screen";
 import Options from "./options.screen";
 import Account from "./account.screen";
-
 import Icon from "react-native-vector-icons/Ionicons";
 import IconF from "react-native-vector-icons/FontAwesome";
 import IconM from "react-native-vector-icons/MaterialCommunityIcons";
 import IconA from "react-native-vector-icons/AntDesign";
 import Message from "../component/message.component";
-import { useSelector } from "react-redux";
-
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { db } from "../firebase";
+import { collection } from "firebase/firestore";
 const Tab = createBottomTabNavigator();
 
 const optionsDesign = {
@@ -37,13 +37,8 @@ const renderModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedRing, setSelectedRing] = useState(false);
     
-    const messages = useSelector((state) => state.Announce.announce);
-
-    const renderMessage = ({item}) => {
-        return (
-            <Message message={item.message} />
-        )
-    }
+    // const messages = useSelector((state) => state.Announce.announce);
+    const [ActivityLog] = useCollection(collection(db, "ActivityLog"));
     
     return (
         <View>
@@ -58,11 +53,13 @@ const renderModal = () => {
                 <View style={style.centeredView}>
                     <View style={style.modalView}>
                         <SafeAreaView style={style.content}>
-                            <FlatList
-                                data={messages}
-                                renderItem={renderMessage}
-                                keyExtractor={(message) => message.id}
-                            />
+                            {ActivityLog?.docs.map((doc) => (
+                                <Message 
+                                    key={doc.id}
+                                    Description={doc.data().Description}
+                                    Time={doc.data().Time}
+                                />
+                            ))}
                         </SafeAreaView>
                         <TouchableOpacity
                             onPress={() => {
@@ -86,7 +83,7 @@ const renderModal = () => {
                 <IconM
                     name="bell-ring"
                     size={25}
-                    color={messages.length != 0 ? "#FD830D" : "#fff"}
+                    color="#fff"
                 />
             </TouchableOpacity>
         </View>

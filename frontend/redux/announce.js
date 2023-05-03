@@ -3,17 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const announceSlice = createSlice({
     name: "announce",
     initialState: {
-        announce: []
+        announceId: null,
+        announceDes: null,
+        announceTime: null,
     },
     reducers: {
-        addAnnounce: (state, action) => {
-            state.announce.push(action.payload)
+        setAnnounceInfo: (state, action) => {
+            state.announceId = action.payload.announceId;
+            state.announceDes = action.payload.announceDes;
+            state.announceTime = action.payload.announceTime;
         },
-        removeAnnounce: (state) => {
-            state.announce.pop()
-        }
     }
 })
 
-export const { addAnnounce, removeAnnounce} = announceSlice.actions;
+export const { setAnnounceInfo } = announceSlice.actions;
 export default announceSlice.reducer;

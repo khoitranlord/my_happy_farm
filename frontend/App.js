@@ -5,9 +5,7 @@ import BBC_MOISTURE from "../mockup_data/BBC_MOISTURE.csv"
 import BBC_TEMP from "../mockup_data/BBC_TEMP.csv"
 import Login from "./screens/login.screen";
 import CreateAccount from "./screens/create_account.screen";
-import Analytics from "./screens/analytics.screen";
 import TabNavigation from "./screens/tabnavigation";
-import Booking from "./screens/booking.screen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,7 +13,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "./screens/profile.screen";
 import { store } from "./store";
 import { Provider } from "react-redux";
-import drawGraph from "./screens/room_detail.screen1";
 import ModuleDetail from "./screens/room_detail.screen";
 
 const Stack = createNativeStackNavigator();
