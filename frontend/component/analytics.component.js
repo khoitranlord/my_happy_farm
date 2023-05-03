@@ -6,6 +6,8 @@ import axios from "axios";
 import Moment from "moment";
 const AnalyticsItem = (props) => {
     const { name, image } = props;
+    const lower_name = name.toLowerCase();
+    const bbc_name = (lower_name === "temperature") ? "temp" : lower_name;
     const navigation = useNavigation();
     const [status, setStatus] = useState("F")
     const [doorStatus, setDoorStatus] = useState("0");
@@ -34,7 +36,7 @@ const AnalyticsItem = (props) => {
     };
     const getModuleValue = async () => {
         const result = await axios.get(
-          `https://io.adafruit.com/api/v2/khoitran1422/feeds/bbc-moisture`
+          `https://io.adafruit.com/api/v2/khoitran1422/feeds/bbc-${bbc_name}`
         );
         // console.log(result.data);
         setDoorStatus(result.data.last_value);
