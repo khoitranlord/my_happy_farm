@@ -1,7 +1,7 @@
 import { 
-        getAuth, onAuthStateChanged, 
-        createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut
-      } from "firebase/auth";
+  getAuth, onAuthStateChanged, 
+  createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut
+} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginlog } from "./loginlog.js"
@@ -42,8 +42,8 @@ export async function retrieveSession(){
     }
   }
   catch (error) {
-  console.log('Error retrieving session:', error);
-}
+    console.log('Error retrieving session:', error);
+  }
 };
 
 // add a function to store session
@@ -85,7 +85,7 @@ const testPass = 'admin123';
 // authenticateUser(testEmail, testPass).then((userEmail) => console.log(userEmail));
 
 // Create a user
-function newUser(email, password){
+export function newUser(email, password){
 createUserWithEmailAndPassword(auth, email, password)
 .then((userCredential) => {
     console.log('user created')
