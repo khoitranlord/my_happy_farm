@@ -69,7 +69,7 @@ const TemperatureDetail = ({navigation}) => {
               letterSpacing: 1,
           }}
         >
-          MODULE DETAIL
+          TEMPERATURE MODULE DETAIL
         </Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>

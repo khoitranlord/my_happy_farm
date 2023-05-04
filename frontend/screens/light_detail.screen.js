@@ -78,7 +78,7 @@ const LightDetail = ({navigation}) => {
               letterSpacing: 1,
           }}
         >
-          MODULE DETAIL
+          LIGHT MODULE DETAIL
         </Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>

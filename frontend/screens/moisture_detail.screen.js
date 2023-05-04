@@ -69,7 +69,7 @@ const MoistureDetail = ({navigation}) => {
               letterSpacing: 1,
           }}
         >
-          MODULE DETAIL
+          MOISTURE MODULE DETAIL
         </Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
