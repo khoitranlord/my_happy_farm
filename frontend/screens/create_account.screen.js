@@ -145,7 +145,7 @@ const CreateAccount = ({ navigation }) => {
                 bgColor="#FAF3DD"
                 tColor="#5E6472"
                 bColor="#FAF3DD"
-                onPress={handleRegister}
+                onPress={() => navigation.navigate("HOME")}
             />
             <Button
                 title="Sign Up with Google"
