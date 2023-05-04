@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, Image, Alert, Pressable } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
-import ModuleDetail from "../screens/room_detail.screen";
+import ModuleDetail from "../screens/light_detail.screen";
 import axios from "axios";
 import Moment from "moment";
 const AnalyticsItem = (props) => {
     const { name, image } = props;
     const lower_name = name.toLowerCase();
+    const upper_name = name.toUpperCase();
     const bbc_name = (lower_name === "temperature") ? "temp" : lower_name;
     const navigation = useNavigation();
     const [status, setStatus] = useState("F")
@@ -53,7 +54,7 @@ const AnalyticsItem = (props) => {
         };
       }, []);
     return (
-        <Pressable style={style.container} onPress={() => navigation.navigate("ROOM DETAIL")}>
+        <Pressable style={style.container} onPress={() => navigation.navigate(`${upper_name} DETAIL`)}>
             <View
                 style={{
                     paddingHorizontal: 30,

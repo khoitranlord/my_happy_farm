@@ -11,7 +11,7 @@ import React, { useState, useEffect } from "react";
 import loginImg from "./../assets/images/loginImg.png";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Button from "../component/button.component";
-
+import { authenticateUser, logOut, retrieveSession } from "../../backend/controllers/authenticate";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from 'axios';
@@ -21,49 +21,66 @@ import serverLink from './../link';
 
 const Login = ({ navigation }) => {
 
-    const [loginInfo, setLoginInfo] = useState({
-        email: "",
-        password: ""
-    })
+    const [user, setUser] = useState();
+    const [loginEmail, setloginEmail] = useState();
+    const [loginPass, setloginPass] = useState();
 
-    const getAsyncStorage = async () => {
-        const value = await getItem('user');
-        if (value === null) {
-            navigation.navigate('SIGN IN');
-        } else {
-            navigation.navigate('HOME');
+    // const getAsyncStorage = async () => {
+    //     const value = await getItem('user');
+    //     if (value === null) {
+    //         navigation.navigate('SIGN IN');
+    //     } else {
+    //         navigation.navigate('HOME');
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     getAsyncStorage();
+    // }, [])
+    const testEmail = 'admin@mail.vn';
+    const testPass = 'admin123';
+    const handleLogin = async (email, password) => {
+        if (!email || !password) {
+            Alert.alert(' Loginerr', 'You need to provide both email and password',
+            [ //button list:
+                {
+                text: 'Dismiss',
+                onPress: () => navigation.navigate('HOME'),
+                style: 'cancel',
+                }
+            ]);
+        }
+        var loginStatus = await authenticateUser(email, password);
+        if (loginStatus[0] == 1) {
+            setUser(loginStatus[1]);
+            setloginEmail();
+            setloginPass();
+        }
+        else {
+            setUser();
+            Alert.alert('Login err', `${loginStatus[1]}`,
+            [ //button list:
+                {
+                text: 'OK',
+                onPress: () => navigation.navigate('HOME'),
+                }
+            ]);
+        }
+    }
+
+    const getSession = async () => {
+        var restoredSession = await retrieveSession();
+        // restoredSession = {"email":"admin@mail.vn","password":"admin123","timestamp":1681791003793}
+        if (restoredSession != null){
+        console.log("login with session: " + restoredSession["email"] + ' - ' + restoredSession["password"])
+        handleLogin(restoredSession['email'], restoredSession['password']);
         }
     }
 
     useEffect(() => {
-        getAsyncStorage();
-    }, [])
-
-    const handleLogin = async (e) => {
-        
-        // navigation.navigate('HOME');
-        try {
-            const result = await axios.post(
-                `${serverLink}/api/v1/user/login`,
-                loginInfo
-            )
-            if (result.data) {
-                navigation.navigate('HOME');
-                storeItem('user', result.data);
-                Alert.alert("Đăng nhập thành công");
-            }
-            else {
-                Alert.alert('Sai tài khoản hoặc mật khẩu');
-            }
-        } catch (error) {
-            Alert.alert('Sai tài khoản hoặc mật khẩu');
-        }
-    }
-
-    const handleChange = (e, name) => {
-        setLoginInfo({...loginInfo, [name]: e.nativeEvent.text});
-    }
-
+        getSession();
+    }, []);
+    if (!user)
     return (
         <View style={style.container}>
             <Image source={loginImg} style={style.image} />
@@ -75,7 +92,7 @@ const Login = ({ navigation }) => {
                     placeholder="Email ID"
                     textContentType="emailAddress"
                     name="email"
-                    onChange={(e) => handleChange(e, 'email')}
+                    onChange={() => setloginEmail(testEmail)}
                 />
                 <View style={style.iconcontainer}>
                     <Icon name="email" size={16} color="#fff" />
@@ -90,13 +107,16 @@ const Login = ({ navigation }) => {
                     secureTextEntry={true}
                     textContentType="password"
                     name="password"
-                    onChange={(e) => handleChange(e, 'password')}
+                    onChange={() => setloginPass(testPass)}
                 />
                 <View style={style.iconcontainer}>
                     <Icon name="lock" size={16} color="#fff" />
                 </View>
             </View>
-            <Button onPress={handleLogin} title="Login" />
+            <Button
+                title='Login'
+                onPress = {() => handleLogin(loginEmail, loginPass)}
+            />
             <Text
                 style={{
                     color: "#fff",

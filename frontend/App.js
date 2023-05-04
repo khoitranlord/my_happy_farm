@@ -13,8 +13,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "./screens/profile.screen";
 import { store } from "./store";
 import { Provider } from "react-redux";
-import ModuleDetail from "./screens/room_detail.screen";
-
+import LightDetail from "./screens/light_detail.screen";
+import MoistureDetail from "./screens/moisture_detail.screen";
+import TemperatureDetail from "./screens/temperature_detail.screen";
 const Stack = createNativeStackNavigator();
 
 const headerConfig = (bg, show = true) => {
@@ -45,8 +46,8 @@ export default function App() {
                             options={headerConfig("#dfdfdf", false)}
                             name="SIGN IN"
                             component={Login}
-                        />
-                        <Stack.Screen
+                        /> */}
+                        {/* <Stack.Screen
                             options={headerConfig("#dfdfdf", false)}
                             name="CREATE ACCOUNT"
                             component={CreateAccount}
@@ -63,14 +64,19 @@ export default function App() {
                         />
                         <Stack.Screen
                             options={headerConfig("#dfdfdf", false)}
-                            name="ROOM DETAIL"
-                            component={ModuleDetail}
+                            name="LIGHT DETAIL"
+                            component={LightDetail}
                         />
-                        {/* <Stack.Screen
+                        <Stack.Screen
                             options={headerConfig("#dfdfdf", false)}
-                            name="BOOKING"
-                            component={Booking}
-                        /> */}
+                            name="MOISTURE DETAIL"
+                            component={MoistureDetail}
+                        />
+                        <Stack.Screen
+                            options={headerConfig("#dfdfdf", false)}
+                            name="TEMPERATURE DETAIL"
+                            component={TemperatureDetail}
+                        />
                     </Stack.Navigator>
                 </NavigationContainer>
             </View>
